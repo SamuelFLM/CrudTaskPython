@@ -90,3 +90,12 @@ class ArgumentosGrupoSQL:
         WHERE [ID] = {id_tarefa}
         """
         return sql_altera_tarefa
+
+
+def validando_tabela_existente(nome_tabela):
+    sql_verificando_existencia_tabela = f"""
+    SELECT TABLE_NAME FROM information_schema.tables WHERE TABLE_NAME = '{nome_tabela}';
+    """
+    cursor.execute(sql_verificando_existencia_tabela)
+    rows = cursor.fetchall()
+    return rows
