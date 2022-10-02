@@ -1,6 +1,7 @@
 import conexao
 from datetime import datetime
 import os
+import time
 
 
 class EstruturaMain:
@@ -12,26 +13,38 @@ class EstruturaMain:
         argumentoUsuario.argumento_main()
         verificador_grupo = ['CREATE', 'READ', 'DELETE']
         while True:
+            time.sleep(1)
+            os.system('cls')
             try:
                 argumento_usuario = input('\033[1;32mDigite: ').split(' ')
-                if len(argumento_usuario) > 1:
-                    if argumento_usuario[1].upper() in verificador_grupo:
-                        try:
-                            if (conexao.validando_tabela_existente(argumento_usuario[2]) and argumento_usuario[1].upper() == verificador_grupo[0]):
-                                raise ValueError(
-                                    '\033[1;31mTABELA JÀ EXISTENTE')
-                            if conexao.validando_tabela_existente(argumento_usuario[2]) == False:
-                                if argumento_usuario[1].upper() == verificador_grupo[0]:
-                                    print('Tabela Criada com sucesso')
-                            else:
-                                raise ValueError('\033[1;31mCai aqui')
-                        except ValueError as erro:
-                            print(erro)
-                    raise ValueError('\033[1;31mErro - Digite Novamente')
+                if (argumento_usuario[1].upper() in verificador_grupo):
+
+                    if (argumento_usuario[1] == verificador_grupo[0]):
+                        if (conexao.validando_tabela_existente(argumento_usuario[2])):
+                            print('\033[1;31mTABELA JÀ EXISTENTE')
+                        else:
+                            print('Tabela Criada com sucesso')
+                            break
+
+                    if (argumento_usuario[1] == verificador_grupo[1]):
+                        if (conexao.validando_tabela_existente(argumento_usuario[2])):
+                            print('retornando COnsulta')
+                            break
+                        else:
+                            print('Tabela não existe')
+
+                    if (argumento_usuario[1] == verificador_grupo[2]):
+                        if (conexao.validando_tabela_existente(argumento_usuario[2])):
+                            print('Deletado com sucesso')
+                            break
+                        else:
+                            print('Tabela não existe')
                 else:
-                    raise ValueError('\033[1;31mErro - Digite Novamente')
+                    print('\033[1;31mCOMANDO INVALIDO')
             except ValueError as erro:
-                print(erro)
+                print('\033[1;31mCOMANDO INVALIDO')
+            except IndexError as erro:
+                print('\033[1;31mCOMANDO INVALIDO')
 
     # OK CRIA TABELA
     # cx.GrupoConexao.executa_query_sql(
