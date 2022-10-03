@@ -65,7 +65,7 @@ class EstruturaMain:
     # OK COMPLETAR TAREFAS
     # cx.GrupoConexao.executa_query_sql(comandos.complete_tarefa('faculdade', 1))
 
-    # OK ALTERAR TAREFAS
+    # OK ALTERAR TAREFASs
     # cx.GrupoConexao.executa_query_sql(comandos.alterar_tarefa(
     #     'faculdade', 'descricao', 'Descricao bolada hehe', 1))
 
@@ -74,16 +74,8 @@ class EstruturaMain:
 
 
 class ArgumentosUsuario:
-    def controla_fluxo_argumento(argumento, *args):
-        pass
-
-    def argumentos_grupo():
-        pass
 
     def sub_argumentos():
-        pass
-
-    def argumento_main():
         pass
 
 
