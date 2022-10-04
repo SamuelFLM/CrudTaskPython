@@ -3,7 +3,6 @@ from interface import Interface
 from datetime import datetime
 import os
 import time
-import logging
 
 
 class EstruturaMain:
