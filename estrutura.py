@@ -1,7 +1,9 @@
 import conexao
+from interface import Interface
 from datetime import datetime
 import os
 import time
+import logging
 
 
 class EstruturaMain:
@@ -10,8 +12,7 @@ class EstruturaMain:
 
     def main():
         argumentoUsuario = ArgumentosUsuario
-        argumentoUsuario.argumento_main()
-        verificador_grupo = ['CREATE', 'READ', 'DELETE']
+        verificador_grupo = ['CREATE', 'READ', 'DELETE', 'DOC']
         while True:
             time.sleep(1)
             os.system('cls')
@@ -21,7 +22,7 @@ class EstruturaMain:
 
                     if (argumento_usuario[1] == verificador_grupo[0]):
                         if (conexao.validando_tabela_existente(argumento_usuario[2])):
-                            print('\033[1;31mTABELA JÀ EXISTENTE')
+                            print('\033[7;31mTABELA JÀ EXISTENTE')
                         else:
                             print('Tabela Criada com sucesso')
                             break
@@ -31,20 +32,25 @@ class EstruturaMain:
                             print('retornando COnsulta')
                             break
                         else:
-                            print('Tabela não existe')
+                            print('\033[1;31mTABELA NÃO EXISTENTE')
 
                     if (argumento_usuario[1] == verificador_grupo[2]):
                         if (conexao.validando_tabela_existente(argumento_usuario[2])):
                             print('Deletado com sucesso')
                             break
                         else:
-                            print('Tabela não existe')
+                            print('\033[1;31mTABELA NÃO EXISTENTE')
+
+                    if (argumento_usuario[1] == verificador_grupo[3]):
+                        argumentoUsuario.sub_argumentos_doc(
+                            argumento_usuario[2])
                 else:
-                    print('\033[1;31mCOMANDO INVALIDO')
+                    print(
+                        '\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
             except ValueError as erro:
-                print('\033[1;31mCOMANDO INVALIDO')
+                print('\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
             except IndexError as erro:
-                print('\033[1;31mCOMANDO INVALIDO')
+                print('\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
 
     # OK CRIA TABELA
     # cx.GrupoConexao.executa_query_sql(
@@ -75,8 +81,24 @@ class EstruturaMain:
 
 class ArgumentosUsuario:
 
-    def sub_argumentos():
+    def sub_argumentos(nome_funcao):
         pass
+
+    def sub_argumentos_doc(nome_funcao):
+        verificador = ['GROUP', 'SUB']
+        doc = Interface
+        try:
+            if nome_funcao in verificador:
+                if nome_funcao == verificador[0]:
+                    doc.documentacao_grupo()
+                else:
+                    doc.documentacao_sub_comandos()
+            else:
+                return print('\033[1;31mCOMANDO INVALIDO')
+        except ValueError as erro:
+            print('\033[1;31mCOMANDO INVALIDO')
+        except IndexError as erro:
+            print('\033[1;31mCOMANDO INVALIDO')
 
 
 estrutura = EstruturaMain

@@ -7,9 +7,9 @@ class ConfigTela:
         os.system('cls')
 
     def titulo(nome_titulo, qtd_caracter):
-        print(qtd_caracter * '*')
-        print(f'    {nome_titulo}   ')
-        print(qtd_caracter * '*')
+        print(qtd_caracter * '\033[1;33m*')
+        print(f'    \033[1;37m{nome_titulo}   ')
+        print(qtd_caracter * '\033[1;33m*')
 
 
 tela = ConfigTela
@@ -18,17 +18,17 @@ tela = ConfigTela
 class Interface:
     def documentacao_grupo():
         tela.limpa_tela()
-        tela.titulo('DOCUMENTAÇAO GRUPO', 30)
+        tela.titulo('DOCUMENTACAO GRUPO', 30)
         print("""
         \nCOMANDOS GRUPOS
-        #Cria uma lista unica para determinado tipo de tarefa.
-        TASK CREATE NOME_DO_GRUPO
+        \033[1;37m#Cria uma lista unica para determinado tipo de tarefa.
+        \033[1;33mTASK CREATE NOME_DO_GRUPO
 
-        #Leia um grupo expecifico
-        TASK READ NOME_DO_GRUPO
+        \033[1;37m#Leia um grupo expecifico
+        \033[1;33mTASK READ NOME_DO_GRUPO
 
-        #Deleta um grupo expecifico
-        TASK DELETE NOME_DO_GRUPO
+        \033[1;37m#Deleta um grupo expecifico
+        \033[1;33mTASK DELETE NOME_DO_GRUPO
         """)
         sair_doc = input('Aperte enter para continuar.....')
         return sair_doc
@@ -36,17 +36,17 @@ class Interface:
     # A fazer
     def documentacao_sub_comandos():
         tela.limpa_tela()
-        tela.titulo('DOCUMENTAÇAO SUB-COMANDOS', 30)
+        tela.titulo('DOCUMENTACAO SUB-COMANDOS', 30)
         print("""
         \nSUB-COMANDOS 
-        #Cria uma lista unica para determinado tipo de tarefa.
-        TASK ADD 
+        \033[1;37m#Cria uma lista unica para determinado tipo de tarefa.
+        \033[1;33mTASK ADD 
 
-        #Leia um grupo expecifico
-        TASK READ NOME_DO_GRUPO
+        \033[1;37m#Leia um grupo expecifico
+        \033[1;33mTASK READ NOME_DO_GRUPO
 
-        #Deleta um grupo expecifico
-        TASK DELETE NOME_DO_GRUPO
+        \033[1;37m#Deleta um grupo expecifico
+        \033[1;33mTASK DELETE NOME_DO_GRUPO
         """)
         sair_doc = input('Aperte enter para continuar.....')
         return sair_doc
