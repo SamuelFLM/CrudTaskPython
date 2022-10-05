@@ -80,7 +80,7 @@ class ArgumentosGrupoSQL:
     def ler_tarefas(nome_tabela):
         tabela = pd.read_sql(
             f'SELECT * FROM [{nome_tabela}]', conexao_banco_de_dados)
-        return print(tabela)
+        return print(f'\033[1;37m{tabela}')
 
     def alterar_tarefa(nome_tabela, coluna, descricao, id_tarefa):
         sql_altera_tarefa = f"""

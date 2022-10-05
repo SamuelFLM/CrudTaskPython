@@ -4,10 +4,11 @@ from datetime import datetime
 import os
 import time
 
+cx = conexao.GrupoConexao
+comandos = conexao.ArgumentosGrupoSQL
+
 
 class EstruturaMain:
-    cx = conexao
-    comandos = conexao.ArgumentosGrupoSQL
 
     def main():
         argumentoUsuario = ArgumentosUsuario
@@ -16,27 +17,29 @@ class EstruturaMain:
             time.sleep(1)
             os.system('cls')
             try:
-                argumento_usuario = input('\033[1;32mDigite: ').split(' ')
-                if (argumento_usuario[1].upper() in verificador_grupo):
+                argumento_usuario = input('\033[1;32mDigite: ').upper().split()
+                if (argumento_usuario[1] in verificador_grupo):
 
                     if (argumento_usuario[1] == verificador_grupo[0]):
                         if (conexao.validando_tabela_existente(argumento_usuario[2])):
                             print('\033[7;31mTABELA JÀ EXISTENTE')
                         else:
+                            cx.executa_query_sql(
+                                cx.cria_tabela_sql(argumento_usuario[2]))
                             print('Tabela Criada com sucesso')
-                            break
 
                     if (argumento_usuario[1] == verificador_grupo[1]):
                         if (conexao.validando_tabela_existente(argumento_usuario[2])):
-                            print('retornando COnsulta')
-                            break
+                            comandos.ler_tarefas(argumento_usuario[2])
+                            input('Aperte para continuar......')
                         else:
                             print('\033[1;31mTABELA NÃO EXISTENTE')
 
                     if (argumento_usuario[1] == verificador_grupo[2]):
                         if (conexao.validando_tabela_existente(argumento_usuario[2])):
-                            print('Deletado com sucesso')
-                            break
+                            cx.executa_query_sql(
+                                cx.excluir_tabela_sql(argumento_usuario[2]))
+                            print('\033[1;32mTABELA DELETADA COM SUCESSO')
                         else:
                             print('\033[1;31mTABELA NÃO EXISTENTE')
 
@@ -49,6 +52,8 @@ class EstruturaMain:
             except ValueError as erro:
                 print('\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
             except IndexError as erro:
+                print('\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
+            except TypeError as erro:
                 print('\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
 
     # OK CRIA TABELA
@@ -81,7 +86,11 @@ class EstruturaMain:
 class ArgumentosUsuario:
 
     def sub_argumentos(nome_funcao):
-        pass
+        verificador = ['ADD', 'READ', 'DELETE', 'ALTER', 'COMPLETE']
+        try:
+            pass
+        except:
+            pass
 
     def sub_argumentos_doc(nome_funcao):
         verificador = ['GROUP', 'SUB']

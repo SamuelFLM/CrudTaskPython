@@ -40,13 +40,19 @@ class Interface:
         print("""
         \nSUB-COMANDOS 
         \033[1;37m#Cria uma lista unica para determinado tipo de tarefa.
-        \033[1;33mTASK ADD 
+        \033[1;33mTASK ADD [DESCRICAO] 
 
         \033[1;37m#Leia um grupo expecifico
         \033[1;33mTASK READ NOME_DO_GRUPO
 
         \033[1;37m#Deleta um grupo expecifico
         \033[1;33mTASK DELETE NOME_DO_GRUPO
+
+        \033[1;37m#Deleta um grupo expecifico
+        \033[1;33mTASK ALTER NOME_DO_GRUPO
+
+        \033[1;37m#Deleta um grupo expecifico
+        \033[1;33mTASK COMPLETE NOME_DO_GRUPO
         """)
         sair_doc = input('Aperte enter para continuar.....')
         return sair_doc
