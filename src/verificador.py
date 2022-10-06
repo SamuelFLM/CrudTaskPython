@@ -1,4 +1,4 @@
-import conexao as conexao
+import conexao
 
 cx = conexao.GrupoConexao
 comandos = conexao.ArgumentosGrupoSQL
