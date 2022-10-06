@@ -56,6 +56,3 @@ class Interface:
         """)
         sair_doc = input('Aperte enter para continuar.....')
         return sair_doc
-
-    def home():
-        pass

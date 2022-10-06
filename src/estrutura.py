@@ -1,18 +1,19 @@
-import conexao
-from interface import Interface
-from datetime import datetime
+from argumentos import ArgumentosUsuario
+from verificador import VerificadorTabelas
 import os
 import time
 
-cx = conexao.GrupoConexao
-comandos = conexao.ArgumentosGrupoSQL
+
+argumentosUsuario = ArgumentosUsuario
+valida_informacao_tabela = VerificadorTabelas
 
 
 class EstruturaMain:
 
     def main():
-        argumentoUsuario = ArgumentosUsuario
         verificador_grupo = ['CREATE', 'READ', 'DELETE', 'DOC']
+        verificador_sub_argumento = [
+            'ADD', 'READ', 'DELETE', 'ALTER', 'COMPLETE']
         while True:
             time.sleep(1)
             os.system('cls')
@@ -20,31 +21,24 @@ class EstruturaMain:
                 argumento_usuario = input('\033[1;32mDigite: ').upper().split()
                 if (argumento_usuario[1] in verificador_grupo):
 
+                    # Criação Tabela
                     if (argumento_usuario[1] == verificador_grupo[0]):
-                        if (conexao.validando_tabela_existente(argumento_usuario[2])):
-                            print('\033[7;31mTABELA JÀ EXISTENTE')
-                        else:
-                            cx.executa_query_sql(
-                                cx.cria_tabela_sql(argumento_usuario[2]))
-                            print('Tabela Criada com sucesso')
+                        valida_informacao_tabela.valida_criacao_tabela(
+                            argumento_usuario[2])
 
+                    # Ler Tabela
                     if (argumento_usuario[1] == verificador_grupo[1]):
-                        if (conexao.validando_tabela_existente(argumento_usuario[2])):
-                            comandos.ler_tarefas(argumento_usuario[2])
-                            input('Aperte para continuar......')
-                        else:
-                            print('\033[1;31mTABELA NÃO EXISTENTE')
+                        valida_informacao_tabela.valida_leitura_tabela(
+                            argumento_usuario[2])
 
+                    # Deleta Tabela
                     if (argumento_usuario[1] == verificador_grupo[2]):
-                        if (conexao.validando_tabela_existente(argumento_usuario[2])):
-                            cx.executa_query_sql(
-                                cx.excluir_tabela_sql(argumento_usuario[2]))
-                            print('\033[1;32mTABELA DELETADA COM SUCESSO')
-                        else:
-                            print('\033[1;31mTABELA NÃO EXISTENTE')
+                        valida_informacao_tabela.valida_exclusao_tabela(
+                            argumento_usuario[2])
 
+                    # Documentação Grupo ou Sub-Grupo
                     if (argumento_usuario[1] == verificador_grupo[3]):
-                        argumentoUsuario.sub_argumentos_doc(
+                        argumentosUsuario.sub_argumentos_doc(
                             argumento_usuario[2])
                 else:
                     print(
@@ -81,32 +75,6 @@ class EstruturaMain:
 
     # OK DELETAR TAREFAS
     # cx.GrupoConexao.executa_query_sql(comandos.deleta_tarefa('faculdade', 1))
-
-
-class ArgumentosUsuario:
-
-    def sub_argumentos(nome_funcao):
-        verificador = ['ADD', 'READ', 'DELETE', 'ALTER', 'COMPLETE']
-        try:
-            pass
-        except:
-            pass
-
-    def sub_argumentos_doc(nome_funcao):
-        verificador = ['GROUP', 'SUB']
-        doc = Interface
-        try:
-            if nome_funcao in verificador:
-                if nome_funcao == verificador[0]:
-                    doc.documentacao_grupo()
-                else:
-                    doc.documentacao_sub_comandos()
-            else:
-                return print('\033[1;31mCOMANDO INVALIDO')
-        except ValueError as erro:
-            print('\033[1;31mCOMANDO INVALIDO')
-        except IndexError as erro:
-            print('\033[1;31mCOMANDO INVALIDO')
 
 
 estrutura = EstruturaMain
