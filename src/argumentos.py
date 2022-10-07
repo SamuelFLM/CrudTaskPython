@@ -1,5 +1,4 @@
 from pyodbc import ProgrammingError
-from numpy import empty
 from datetime import datetime
 from interface import Interface
 import conexao
@@ -18,7 +17,7 @@ class ArgumentosUsuario:
                 descricao = ' '.join(argumento[4:argumento.index('>')])
                 prioridade = (' ').join(
                     argumento[argumento.index('['): argumento.index(']')][1])
-                if (len(prioridade) == 1) and (descricao != empty):
+                if (len(prioridade) == 1) and (descricao != False):
                     cx.executa_query_sql(comandos.adicionar_tarefa(
                         argumento[2], descricao, prioridade, 'NO', data.__format__('%d/%m/%Y %H:%M:%S'), None))
                     print('\033[1;32mTAREFA ADICIONADA COM SUCESSO ')

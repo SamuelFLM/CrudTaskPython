@@ -1,3 +1,4 @@
+from multiprocessing.resource_sharer import stop
 import conexao
 
 cx = conexao.GrupoConexao
@@ -22,9 +23,13 @@ class VerificadorTabelas:
 
     def valida_leitura_tabela(argumento):
         try:
+            if argumento.upper() == "TABLE":
+                comandos.read_tabelas()
+                input('Aperte para continuar......')
+            else:
+                pass
             if (conexao.validando_tabela_existente(argumento)):
                 comandos.ler_tarefas(argumento)
-                input('Aperte para continuar......')
             else:
                 print('\033[1;31mTABELA NÃO EXISTENTE')
         except ValueError as erro:

@@ -29,7 +29,7 @@ class GrupoConexao:
         CREATE TABLE [{nome_tabela}](
         [ID] INT IDENTITY NOT NULL,
         [DESCRICAO] NVARCHAR(30) NOT NULL,
-        [PRIORIDADE] CHAR(1) NOT NULL,
+        [PRIORIDADE] NVARCHAR(10) NOT NULL,
         [STATUS] CHAR(2) NOT NULL,
         [DT_INICIO] NVARCHAR(30) NOT NULL,
         [DT_FIM] NVARCHAR(30)
@@ -90,6 +90,11 @@ class ArgumentosGrupoSQL:
         WHERE [ID] = {id_tarefa}
         """
         return sql_altera_tarefa
+
+    def read_tabelas():
+        tabela = pd.read_sql(
+            f'SELECT TABLE_NAME FROM information_schema.tables', conexao_banco_de_dados)
+        return print(f'\033[1;37m{tabela}')
 
 
 def validando_tabela_existente(nome_tabela):
