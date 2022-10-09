@@ -1,4 +1,3 @@
-from multiprocessing.resource_sharer import stop
 import conexao
 
 cx = conexao.GrupoConexao

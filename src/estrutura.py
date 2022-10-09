@@ -12,7 +12,7 @@ class EstruturaMain:
 
     def main():
         verificador_executador = ['EX', 'TASK']
-        verificador_grupo = ['CREATE', 'READ', 'DELETE']
+        verificador_grupo = ['CREATE', 'READ', 'DELETE', 'DOC']
         while True:
             time.sleep(1)
             os.system('cls')
