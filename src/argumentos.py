@@ -1,10 +1,12 @@
 from pyodbc import ProgrammingError
 from datetime import datetime
 from interface import Interface
+from verificador import VerificadorTabelas
 import conexao
 
 cx = conexao.GrupoConexao
 comandos = conexao.ArgumentosGrupoSQL
+verif = VerificadorTabelas
 data = datetime.now()
 
 
@@ -49,12 +51,12 @@ class ArgumentosUsuario:
         except:
             pass
 
-    def sub_argumentos_doc(nome_funcao):
+    def sub_argumentos_doc(argumento):
         verificador = ['GROUP', 'SUB']
         doc = Interface
         try:
-            if nome_funcao in verificador:
-                if nome_funcao == verificador[0]:
+            if argumento[2] in verificador:
+                if argumento[2] == verificador[0]:
                     doc.documentacao_grupo()
                 else:
                     doc.documentacao_sub_comandos()
@@ -81,3 +83,17 @@ def filtra_argumento(argumento):
             executa_funcao.sub_argumentos_alter(argumento)
         case 'COMPLETE':
             executa_funcao.sub_argumentos_complete(argumento)
+        case 'DOC':
+            executa_funcao.sub_argumentos_doc(argumento)
+
+
+def filtra_argumento_tabela(argumento):
+    match argumento[1]:
+        case 'CREATE':
+            verif.valida_criacao_tabela(argumento)
+        case 'READ':
+            verif.valida_criacao_tabela(argumento)
+        case 'DELETE':
+            verif.valida_criacao_tabela(argumento)
+        case 'TABLE':
+            comandos.read_tabelas()
