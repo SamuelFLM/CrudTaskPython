@@ -62,11 +62,16 @@ class ArgumentosGrupoSQL:
         """
         return sql_adiciona_tarefa
 
-    def complete_tarefa(nome_tabela, id_tarefa):
+    def complete_tarefa(nome_tabela, id_tarefa, data_fim):
         sql_complete_tarefa = f"""
             USE [TO-DO]
             UPDATE [{nome_tabela}]
                 SET [STATUS] = 'OK'
+                WHERE [ID] = {id_tarefa}
+
+            USE [TO-DO]
+            UPDATE [{nome_tabela}]
+                SET [DT_FIM] = '{data_fim}'
                 WHERE [ID] = {id_tarefa}
         """
         return sql_complete_tarefa
@@ -102,5 +107,14 @@ def validando_tabela_existente(nome_tabela):
     SELECT TABLE_NAME FROM information_schema.tables WHERE TABLE_NAME = '{nome_tabela}';
     """
     cursor.execute(sql_verificando_existencia_tabela)
+    rows = cursor.fetchall()
+    return rows
+
+
+def valida_se_existe_task_na_tabela(nome_tabela, id):
+    sql_valida_existencia_task = f"""
+    SELECT ID FROM {nome_tabela} WHERE ID = {id}
+    """
+    cursor.execute(sql_valida_existencia_task)
     rows = cursor.fetchall()
     return rows

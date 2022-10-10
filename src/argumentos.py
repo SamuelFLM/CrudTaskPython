@@ -14,9 +14,8 @@ class ArgumentosUsuario:
 
     def sub_argumentos_add(argumento):
         try:
-
             if conexao.validando_tabela_existente(argumento[2]):
-                descricao = ' '.join(argumento[4:argumento.index('>')])
+                descricao = (' ').join(argumento[4:argumento.index('>')])
                 prioridade = (' ').join(
                     argumento[argumento.index('['): argumento.index(']')][1])
                 if (len(prioridade) == 1) and (descricao != False):
@@ -35,21 +34,62 @@ class ArgumentosUsuario:
 
     def sub_argumentos_delete(argumento):
         try:
-            pass
-        except:
-            pass
+            if (conexao.validando_tabela_existente(argumento[2])):
+                if (conexao.valida_se_existe_task_na_tabela(argumento[2], argumento[3])):
+                    cx.executa_query_sql(comandos.deleta_tarefa(
+                        argumento[2], argumento[3]))
+                    print('\033[1;32mTABELA DELETADA COM SUCESSO')
+                else:
+                    print('\033[1;31mID NÃO ENCONTRADO')
+            else:
+                print('\033[1;31mTABELA NÃO EXISTENTE')
+        except ValueError as erro:
+            print('\033[1;31mCOMANDO INVALIDO')
+        except IndexError as erro:
+            print('\033[1;31mCOMANDO INVALIDO')
 
     def sub_argumentos_alter(argumento):
         try:
-            pass
-        except:
-            pass
+            argumentos = ['DESCRICAO', 'PRIORIDADE']
+            if conexao.validando_tabela_existente(argumento[2]):
+                descricao = (' ').join(argumento[4:argumento.index('>')])
+                id = argumento[argumento.index('['): argumento.index(']')][1]
+                if (argumento[3] in argumentos):
+                    cx.executa_query_sql(comandos.alterar_tarefa(
+                        argumento[2], argumento[3], descricao, id))
+                    print('\033[1;32mTAREFA ALTERADA COM SUCESSO ')
+                else:
+                    print('\033[1;31mCOMANDO INVALIDO')
+            else:
+                print('\033[1;31mTABELA NÃO EXISTENTE')
+        except ProgrammingError as erro:
+            print('\033[1;31mERRO PARA ADICIONAR TASK')
+        except ValueError as erro:
+            print('\033[1;31mVALOR DIGITADO INCORRETAMENTE')
+        except IndexError as erro:
+            print('\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
+        except TypeError as erro:
+            print('\033[1;31mERRO ESCRITA')
 
     def sub_argumentos_complete(argumento):
         try:
-            pass
-        except:
-            pass
+            if (conexao.validando_tabela_existente(argumento[2])):
+                if (conexao.valida_se_existe_task_na_tabela(argumento[2], argumento[3])):
+                    cx.executa_query_sql(comandos.complete_tarefa(
+                        argumento[2], argumento[3], data.__format__('%d/%m/%Y %H:%M:%S')))
+                    print('\033[1;32mTABELA CONCLUIDA COM SUCESSO')
+                else:
+                    print('\033[1;31mCOMANDO INVALIDO')
+            else:
+                print('\033[1;31mCOMANDO INVALIDO')
+        except ProgrammingError as erro:
+            print('\033[1;31mERRO PARA ADICIONAR TASK')
+        except ValueError as erro:
+            print('\033[1;31mVALOR DIGITADO INCORRETAMENTE')
+        except IndexError as erro:
+            print('\033[1;31mCOMANDO INVALIDO FAVOR CONSULTAR DOCUMENTACAO')
+        except TypeError as erro:
+            print('\033[1;31mERRO ESCRITA')
 
     def sub_argumentos_doc(argumento):
         verificador = ['GROUP', 'SUB']
@@ -77,12 +117,16 @@ def filtra_argumento(argumento):
     match argumento[1]:
         case 'ADD':
             executa_funcao.sub_argumentos_add(argumento)
+            input("Aperte enter para continuar.......")
         case 'DELETE':
             executa_funcao.sub_argumentos_delete(argumento)
+            input("Aperte enter para continuar.......")
         case 'ALTER':
             executa_funcao.sub_argumentos_alter(argumento)
+            input("Aperte enter para continuar.......")
         case 'COMPLETE':
             executa_funcao.sub_argumentos_complete(argumento)
+            input("Aperte enter para continuar.......")
         case 'DOC':
             executa_funcao.sub_argumentos_doc(argumento)
 
@@ -91,9 +135,13 @@ def filtra_argumento_tabela(argumento):
     match argumento[1]:
         case 'CREATE':
             verif.valida_criacao_tabela(argumento)
+            input("Aperte enter para continuar.......")
         case 'READ':
-            verif.valida_criacao_tabela(argumento)
+            verif.valida_leitura_tabela(argumento)
+            input("Aperte enter para continuar.......")
         case 'DELETE':
-            verif.valida_criacao_tabela(argumento)
+            verif.valida_exclusao_tabela(argumento)
+            input("Aperte enter para continuar.......")
         case 'TABLE':
             comandos.read_tabelas()
+            input("Aperte enter para continuar.......")
