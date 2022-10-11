@@ -1,0 +1,6 @@
+Troca host na parte de conexão.
+
+depois so inicializar o main.py e vai está funcionando :)
+
+
+CREATE DATABASE [TO-DO]

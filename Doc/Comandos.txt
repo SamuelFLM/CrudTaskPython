@@ -1,0 +1,33 @@
+
+ex/task read faculdade ( Tarefas da tabela)
+
+#EX
+ex create nome_tabela - ok 
+ex read nome_tabela - ok
+ex delete nome_tabela - ok
+ex table - ok 
+
+
+#TASK
+
+#Doc ----- OK
+	#GROUP (Comandos EX)
+	#SUB (Comandos Task)
+
+Task doc group/sub 
+
+
+#Create -ok
+
+task create nome_tabela < descricao > [ prioridade ] 
+
+#Delete
+
+task delete nome_tabela  id_tarefa
+
+#ALTER
+Pode alterar descricao/prioridade
+task alter jogo  descricao < nova descricao > [ 18 ]  
+
+#Complete
+task complete jogo 3 

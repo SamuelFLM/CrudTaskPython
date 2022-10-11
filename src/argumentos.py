@@ -7,13 +7,13 @@ import conexao
 cx = conexao.GrupoConexao
 comandos = conexao.ArgumentosGrupoSQL
 verif = VerificadorTabelas
-data = datetime.now()
 
 
 class ArgumentosUsuario:
 
     def sub_argumentos_add(argumento):
         try:
+            data = datetime.now()
             if conexao.validando_tabela_existente(argumento[2]):
                 descricao = (' ').join(argumento[4:argumento.index('>')])
                 prioridade = (' ').join(
@@ -73,6 +73,7 @@ class ArgumentosUsuario:
 
     def sub_argumentos_complete(argumento):
         try:
+            data = datetime.now()
             if (conexao.validando_tabela_existente(argumento[2])):
                 if (conexao.valida_se_existe_task_na_tabela(argumento[2], argumento[3])):
                     cx.executa_query_sql(comandos.complete_tarefa(
@@ -127,8 +128,6 @@ def filtra_argumento(argumento):
         case 'COMPLETE':
             executa_funcao.sub_argumentos_complete(argumento)
             input("Aperte enter para continuar.......")
-        case 'DOC':
-            executa_funcao.sub_argumentos_doc(argumento)
 
 
 def filtra_argumento_tabela(argumento):
@@ -145,3 +144,5 @@ def filtra_argumento_tabela(argumento):
         case 'TABLE':
             comandos.read_tabelas()
             input("Aperte enter para continuar.......")
+        case 'DOC':
+            executa_funcao.sub_argumentos_doc(argumento)
